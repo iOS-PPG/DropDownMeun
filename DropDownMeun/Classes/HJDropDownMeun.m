@@ -531,6 +531,31 @@
 }
 
 #pragma mark - setter/getter
+- (void)setIndexPath:(HJIndexPath *)indexPath {
+    
+    NSInteger numberOfItem = [self.dataSource numberOfColumnsInDropDownMeun:self];
+    
+    if(numberOfItem <= 0) return;
+    
+    _selectIndexPath = indexPath;
+    
+    [_topCollectionView reloadData];
+    [_topCollectionView layoutIfNeeded];
+    
+    HJCollectionViewCell *cell = (HJCollectionViewCell *)[_topCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:_selectIndexPath.column inSection:0]];
+    
+    if ([_dataSource respondsToSelector:@selector(dropDownMeun:titleForRowAtIndexPath:)]) {
+        [cell setTextString:[_dataSource dropDownMeun:self titleForRowAtIndexPath:_selectIndexPath]];
+    }
+    
+    if ([_delegate respondsToSelector:@selector(dropDownMeun:didSelectRowAtIndexPath:)]) {
+        [_delegate dropDownMeun:self didSelectRowAtIndexPath:_selectIndexPath];
+    }
+    
+    [self topMeunCancelSelect];
+    
+}
+
 - (UIView *)bgView {
     if (!_bgView) {
         _bgView = [UIView new];
