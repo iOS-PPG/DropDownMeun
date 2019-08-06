@@ -58,5 +58,7 @@
 @property (nonatomic, strong) UIColor *selectColor;
 @property (nonatomic, strong) UIColor *normalColor;
 
+- (void)setIndexPath:(HJIndexPath *)indexPath;
+
 @end
 
